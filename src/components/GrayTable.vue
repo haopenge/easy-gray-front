@@ -1,5 +1,5 @@
 <template>
-  <Table border :columns="columns" :data="data">
+  <Table border :columns="columns" :data="grayProjects">
     <template #name="{ row }">
       <strong>{{ row.name }}</strong>
     </template>
@@ -36,13 +36,7 @@ export default {
           align: 'center'
         }
       ],
-      data: [
-        {
-          name: 'easy-gray-gateway-api',
-          branch: 'main',
-          status: '运行中',
-        }
-      ]
+      grayProjects: []
     }
   },
   methods: {

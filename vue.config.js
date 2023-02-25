@@ -34,7 +34,7 @@ const config = {
     port: 8081,
     host: 'localhost',
     proxy: {
-      '/': {
+      '/gray': {
         target: 'http://localhost:10081',
         changeOrigin: true,
         /* pathRewrite: {
