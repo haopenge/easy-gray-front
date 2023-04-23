@@ -3,28 +3,28 @@
     <Split v-model="split">
       <template #left>
         <div class="demo-split-pane">
-          <List/>
+          <List aria-selected="true"/>
         </div>
       </template>
       <template #right>
         <div class="demo-split-pane">
-          <GrayTable/>
+          <GrayTable v-show="false"/>
         </div>
       </template>
     </Split>
   </div>
 </template>
 <script>
-import GrayTable from '@/components/GrayTable.vue'
-import List from '@/components/List.vue'
+import GrayTable from '@/components/Right.vue'
+import List from '@/components/Left.vue'
 
 export default {
   components: { List, GrayTable },
   data() {
     return {
-      split: 0.4
+      split: 0.4,
     }
-  },
+  }
 }
 </script>
 <style>

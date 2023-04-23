@@ -3,11 +3,11 @@
     <template #name="{ row }">
       <strong>{{ row.name }}</strong>
     </template>
-    <template #action="{index}">
-      <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">
+    <template>
+      <Button type="primary" size="small" style="margin-right: 5px">
         编辑
       </Button>
-      <Button type="error" size="small" @click="remove(index)">删除</Button>
+      <Button type="error" size="small">删除</Button>
     </template>
   </Table>
 </template>
@@ -36,18 +36,13 @@ export default {
           align: 'center'
         }
       ],
-      grayProjects: []
-    }
-  },
-  methods: {
-    show(index) {
-      this.$Modal.info({
-        title: 'User Info',
-        content: `Name：${this.data[index].name}<br>Age：${this.data[index].age}<br>Address：${this.data[index].address}`
-      })
-    },
-    remove(index) {
-      this.data.splice(index, 1)
+      grayProjects: [
+        {
+          name: 'easy-gray-gateway-api',
+          branch: 'main',
+          status: '未启用'
+        }
+      ]
     }
   }
 }

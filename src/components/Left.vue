@@ -1,23 +1,29 @@
 <template>
   <List>
-    <ListItem v-for="item in grayEnvList" :key="item.id" onclick="hello()">
-        <ListItemMeta :title="item.name" :description="item.description" />
-        <template #action>
-          <li>
-            <a href="">编辑</a>
-          </li>
-          <li>
-            <a href="">移除</a>
-          </li>
-        </template>
+    <ListItem v-for="item in grayEnvList" :key="item.id"  @click="show()">
+      <ListItemMeta :title="item.name" :description="item.description"/>
+      <template #action>
+        <li>
+          <a href="" @click="remove()">编辑</a>
+        </li>
+        <li>
+          <a href="" @click="show()">移除</a>
+        </li>
+      </template>
     </ListItem>
   </List>
 </template>
 <script>
 
 import axios from 'axios'
+import index from 'vuex'
 
 export default {
+  computed: {
+    index() {
+      return index
+    }
+  },
   created() {
     /* this.init() */
   },
@@ -38,7 +44,6 @@ export default {
       ]
     }
   },
-
   methods: {
     async init() {
       await this.findGrayEnvList()
@@ -64,6 +69,12 @@ export default {
         .catch((error) => { // 请求失败处理
           console.log(error)
         })
+    },
+    remove() {
+      alert('hello')
+    },
+    show() {
+      console.log(this.$parent)
     }
   }
 }

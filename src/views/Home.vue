@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import PageSplit from '@/components/PageSplit.vue'
+import PageSplit from '@/components/main.vue'
 
 export default {
   name: 'HomeView',
