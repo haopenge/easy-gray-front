@@ -1,38 +1,31 @@
 <template>
-  <div class="demo-split">
-    <Split v-model="split">
-      <template #left>
-        <div class="demo-split-pane">
-          <List aria-selected="true"/>
-        </div>
-      </template>
-      <template #right>
-        <div class="demo-split-pane">
-          <GrayTable v-show="false"/>
-        </div>
-      </template>
-    </Split>
+  <div>
+    <item :goods="goods" @change='changePrice'>
+    </item>
   </div>
 </template>
 <script>
-import GrayTable from '@/components/Right.vue'
-import List from '@/components/Left.vue'
+
+import item from '@/components/Item.vue'
 
 export default {
-  components: { List, GrayTable },
+  name: 'App',
   data() {
     return {
-      split: 0.4,
+      goods: {
+        name: 'iPhone XS Max',
+        price: 10000
+      }
     }
+  },
+  methods: {
+    changePrice(val) {
+      console.log(val)
+      this.goods.price = val
+    }
+  },
+  components: {
+    Item: item
   }
 }
 </script>
-<style>
-.demo-split{
-  height: 1000px;
-  border: 1px solid #dcdee2;
-}
-.demo-split-pane{
-  padding: 10px;
-}
-</style>
