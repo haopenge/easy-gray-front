@@ -6,7 +6,7 @@
 </template>
 <script>
 
-import item from '@/components/Item.vue'
+import item from '@/components/n1/Item.vue'
 
 export default {
   name: 'App',

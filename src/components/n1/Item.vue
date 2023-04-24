@@ -11,7 +11,7 @@
 export default {
   props: {
     goods: {
-      type: Object,
+      type: null,
       default: null
     }
   },

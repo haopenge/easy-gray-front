@@ -1,14 +1,15 @@
 <template>
-  <PageSplit/>
+  <master>
+  </master>
 </template>
 
 <script>
-import PageSplit from '@/components/main.vue'
+import master from '@/components/login/Login.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    PageSplit,
+    master
   }
 }
 </script>
