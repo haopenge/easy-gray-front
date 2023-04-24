@@ -44,9 +44,11 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
+  /*
+  background: url("https://cdn.pixabay.com/photo/2016/07/23/18/45/pokemon-1536849_960_720.png") center center no-repeat;
+  */
+  background-size: cover;
 }
-
 .login-container {
   position: relative;
   width: 400px;
@@ -55,29 +57,13 @@ export default {
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
 .login-title {
   margin-top: 0;
   margin-bottom: 20px;
   font-size: 28px;
   text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
-
-.login-form {
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .form-control {
   display: block;
   width: 100%;
@@ -87,11 +73,12 @@ export default {
   border: none;
   border-radius: 5px;
   background-color: #f5f5f5;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
 }
-
 .btn {
-  display: inline-block;
+  display: block;
+  width: 100%;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
@@ -102,20 +89,20 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   background-color: #4caf50;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
-
 .btn:hover {
   background-color: #3e8e41;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 }
-
 .login-footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
 }
-
 .login-link {
   color: #4caf50;
   text-decoration: none;
@@ -123,55 +110,7 @@ export default {
   margin: 0 10px;
   transition: all 0.3s ease;
 }
-
 .login-link:hover {
   text-decoration: underline;
-}
-
-.login-separator {
-  width: 1px;
-  height: 16px;
-  margin: 0 10px;
-  background-color: #ccc;
-}
-
-.login-container:before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border-radius: 20px;
-  border: 1px solid #4caf50;
-  z-index: -1;
-  animation: border-animation 2s linear infinite;
-}
-
-.login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  /* background: url("https://cdn.pixabay.com/photo/2016/07/23/18/45/pokemon-1536849_960_720.png") center center no-repeat;*/
-  background-size: cover;
-}
-
-@keyframes border-animation {
-  0% {
-    border-color: #4caf50;
-  }
-  25% {
-    border-color: #f44336;
-  }
-  50% {
-    border-color: #2196f3;
-  }
-  75% {
-    border-color: #ffc107;
-  }
-  100% {
-    border-color: #4caf50;
-  }
 }
 </style>
