@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import master from '@/components/login/Login.vue'
+import master from '@/components/n2/A.vue'
 
 export default {
   name: 'HomeView',

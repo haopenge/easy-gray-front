@@ -9,15 +9,15 @@ import B from './B.vue'
 
 export default {
   components: {
-    B,
+    B
   },
   setup() {
-    const state = reactive({
-      message: 'Hello from parent component!'
+    const data = reactive({
+      aMessage: 'I am from A'
     })
-    provide('message', state.message)
+    provide('aMessage', data.aMessage)
     return {
-      state,
+      data,
     }
   },
 }
