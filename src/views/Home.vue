@@ -1,15 +1,15 @@
 <template>
-  <master>
-  </master>
+  <Main>
+  </Main>
 </template>
 
 <script>
-import master from '@/components/n3/Parent.vue'
+import Main from '@/components/gray/Main.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    master
+    Main
   }
 }
 </script>

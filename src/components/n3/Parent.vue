@@ -1,27 +1,16 @@
 <template>
   <div>
-    <h2>Parent Component</h2>
-    <p>{{ message }}</p>
-    <ChildA />
+    <my-component message="Hello, World!" v-bind="$attrs"/>
+    <p>这是父组件中的一些内容</p>
   </div>
 </template>
 
 <script>
-import ChildA from './ChildA.vue'
+import MyComponent from './ChildA.vue'
 
 export default {
   components: {
-    ChildA
+    MyComponent,
   },
-  data() {
-    return {
-      message: 'Hello from parent!'
-    }
-  },
-  methods: {
-    /* ev1(){
-      console.log("........ev1......")
-    } */
-  }
 }
 </script>

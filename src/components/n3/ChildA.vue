@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <button v-bind="$attrs"
-            @click="$emit('update:message', 'Hello from child!')"
-
-    >
-      Send message to parent
-    </button>
+  <div class="wrapper">
+    <slot :text="message" />
+    <button @click="onClick">点击此处触发一个事件</button>
   </div>
 </template>
 
 <script>
 export default {
-  inheritAttrs: false,
-  mounted() {
-    console.log(this.$attrs.message)
+  name: 'MyComponent',
+  props: {
+    message: String,
+  },
+  methods: {
+    onClick() {
+      this.$emit('hello-event')
+    },
   },
 }
 </script>
+
+<style>
+.wrapper {
+  border: 1px solid black;
+  padding: 10px;
+}
+</style>
