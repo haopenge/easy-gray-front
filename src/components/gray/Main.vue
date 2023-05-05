@@ -17,7 +17,7 @@
 <script>
 import Left from '@/components/gray/Left.vue'
 import Right from '@/components/gray/Right.vue'
-//import axios from 'axios'
+import axios from 'axios'
 
 export default {
   components: {
@@ -47,18 +47,22 @@ export default {
      * @returns {[{name: string, description: string, id: number},{name: string, description: string, id: number}]}
      */
     findGrayEnvList() {
-      return [
-        {
-          id: 1,
-          name: 'John Brown',
-          description: 'New York No. 1 Lake Park'
-        },
-        {
-          id: 2,
-          name: 'Jim Green',
-          description: 'London No. 1 Lake Park'
-        }
-      ]
+      axios
+          .get('/gray/findAll')
+          .then((response) => {
+            console.log(response)
+            if (response && response.data) {
+              const result = response.data
+              this.grayEnvList = result.data || []
+              this.grayEnvList.forEach((item) => {
+                item.description = item.description ? item.description : '未填写环境描述'
+              })
+            }
+            console.log(`grayEnvList : ${this.grayEnvList}`)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
