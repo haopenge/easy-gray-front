@@ -3,26 +3,34 @@
     <Split v-model="split">
       <template #left>
         <div class="demo-split-pane">
-          <Left :gray-env-list="grayEnvList" @change='changeGrayEnv'/>
+          <Left :gray-env-list="grayEnvList" @change='findProject' @show-pop="showEnvPop"/>
         </div>
       </template>
       <template #right>
         <div class="demo-split-pane">
-          <Right :gray-project-list="grayProjectList"/>
+          <Right :gray-project-list="grayProjectList" />
         </div>
       </template>
     </Split>
   </div>
+
+  <Modal v-model="visible" title="编辑">
+    <!-- 弹窗的内容 -->
+    <EnvPop/>
+  </Modal>
+
 </template>
 <script>
 import Left from '@/components/gray/Left.vue'
 import Right from '@/components/gray/Right.vue'
+import EnvPop from '@/components/gray/EnvPop.vue'
 import axios from 'axios'
 
 export default {
   components: {
     Left,
-    Right
+    Right,
+    EnvPop
   },
   created() {
     this.init()
@@ -31,16 +39,19 @@ export default {
     return {
       split: 0.4,
       grayEnvList: [],
-      grayProjectList: []
+      grayProjectList: [],
+      grayEnv : {
+        id: '1',
+        name: '2',
+        description: '3'
+      },
+      visible: false
     }
   },
   methods: {
     async init() {
       console.log('invoke init()')
-      this.grayEnvList = this.findGrayEnvList()
-      const grayEnv = this.grayEnvList[0]
-      this.changeGrayEnv(grayEnv.id)
-      console.log('grayProjectList: ', this.grayProjectList[0])
+      this.findGrayEnvList()
     },
     /**
      * 查询灰度列表
@@ -48,7 +59,7 @@ export default {
      */
     findGrayEnvList() {
       axios
-          .get('/gray/findAll')
+          .get('/env/findAll')
           .then((response) => {
             console.log(response)
             if (response && response.data) {
@@ -57,8 +68,8 @@ export default {
               this.grayEnvList.forEach((item) => {
                 item.description = item.description ? item.description : '未填写环境描述'
               })
+              this.findProject(this.grayEnvList[0].id)
             }
-            console.log(`grayEnvList : ${this.grayEnvList}`)
           })
           .catch((error) => { // 请求失败处理
             console.log(error)
@@ -67,17 +78,40 @@ export default {
 
     /**
      * 查看灰度项目
-     * @param grayId
+     * @param envId 环境id
      */
-    changeGrayEnv(grayId) {
-      console.log('.... changeGrayEnv', grayId)
-      this.grayProjectList = [
-        {
-          name: 'easy-gray-admin-api',
-          branch: grayId,
-          status: 1,
-        }
-      ]
+    findProject(envId) {
+      console.log('.... findProject', envId)
+      axios
+          .get('/project/findByEnvId?envId=' + envId)
+          .then((response) => {
+            console.log(response)
+            if (response && response.data) {
+              const result = response.data
+              this.grayProjectList = result.data || []
+              this.grayProjectList.forEach((item) => {
+                item.description = item.description ? item.description : '未填写项目描述'
+              })
+            }
+            console.log(`grayProjectList : ${this.grayProjectList}`)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
+    },
+
+    /**
+     * 展示环境弹窗
+     */
+    showEnvPop(row){
+      console.log("show ................." + row.id)
+      this.grayEnv = {
+        id: row.id,
+        name: row.name,
+        description: row.description
+      };
+      console.log(this.grayEnv.name)
+      this.visible = true
     }
   }
 }
