@@ -3,21 +3,20 @@
     <Split v-model="split">
       <template #left>
         <div class="demo-split-pane">
-          <Left :gray-env-list="grayEnvList" @change='findProject' @show-pop="showEnvPop"/>
+          <Left :gray-env-list="grayEnvList" @refresh-project='refreshProject' @show-pop="showEnvPop"/>
         </div>
       </template>
       <template #right>
         <div class="demo-split-pane">
-          <Right :gray-project-list="grayProjectList" />
+          <Right :gray-project-list="grayProjectList"/>
         </div>
       </template>
     </Split>
   </div>
 
-  <Modal v-model="visible" title="编辑">
-    <!-- 弹窗的内容 -->
-    <EnvPop/>
-  </Modal>
+  <div>
+    <EnvPop :gray-env="grayEnv" :visible="visible" @env-edit="envEdit"/>
+  </div>
 
 </template>
 <script>
@@ -40,10 +39,11 @@ export default {
       split: 0.4,
       grayEnvList: [],
       grayProjectList: [],
-      grayEnv : {
+      grayEnv: {
         id: '1',
         name: '2',
-        description: '3'
+        description: '3',
+        expireTime: new Date('2023-01-01')
       },
       visible: false
     }
@@ -53,8 +53,9 @@ export default {
       console.log('invoke init()')
       this.findGrayEnvList()
     },
+
     /**
-     * 查询灰度列表
+     * 刷新项目列表
      * @returns {[{name: string, description: string, id: number},{name: string, description: string, id: number}]}
      */
     findGrayEnvList() {
@@ -68,7 +69,7 @@ export default {
               this.grayEnvList.forEach((item) => {
                 item.description = item.description ? item.description : '未填写环境描述'
               })
-              this.findProject(this.grayEnvList[0].id)
+              this.refreshProject(this.grayEnvList[0].id)
             }
           })
           .catch((error) => { // 请求失败处理
@@ -80,7 +81,7 @@ export default {
      * 查看灰度项目
      * @param envId 环境id
      */
-    findProject(envId) {
+    refreshProject(envId) {
       console.log('.... findProject', envId)
       axios
           .get('/project/findByEnvId?envId=' + envId)
@@ -103,15 +104,36 @@ export default {
     /**
      * 展示环境弹窗
      */
-    showEnvPop(row){
-      console.log("show ................." + row.id)
+    showEnvPop(row) {
       this.grayEnv = {
         id: row.id,
         name: row.name,
-        description: row.description
-      };
+        description: row.description,
+        expireTime: row.expireTime
+      }
       console.log(this.grayEnv.name)
       this.visible = true
+    },
+
+    /**
+     * 修改环境信息
+     * @param grayEnv
+     */
+    envEdit(grayEnv) {
+      const payload = {
+        id: grayEnv.id,
+        name: grayEnv.name,
+        description: grayEnv.description,
+        expireTime: grayEnv.expireTime
+      }
+      axios.post('/env/edit', payload)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+     this.findGrayEnvList();
     }
   }
 }

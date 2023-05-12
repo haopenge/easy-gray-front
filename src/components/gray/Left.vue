@@ -1,11 +1,11 @@
 <template>
   <!--@on-row-click="showDetail"-->
-  <Table border :columns="columns" :data="grayEnvList">
+  <Table border :columns="columns" :data="grayEnvList" @on-row-click="showDetail">
     <template #name="{ row }">
       <strong>{{ row.name }}</strong>
     </template>
     <template #action="{ row, index }">
-      <Button type="primary" size="small" style="margin-right: 5px" @click="editPop(row)">编辑</Button>
+      <Button type="primary" size="small" style="margin-right: 5px" @click.stop="editPop(row)">编辑</Button>
       <Button type="error" size="small" @click.stop="remove(index)">Delete</Button>
     </template>
   </Table>
@@ -43,14 +43,12 @@ export default {
     editPop(row) {
       this.$emit('show-pop', row)
     },
-    showDetail(row, event) {
-      // row 参数为用户点击的行的数据对象
-      // console.log('点击了行：', row);
-      // console.log('点击了行：', index);
-      // this.$emit('change', row.id)
+    showDetail(row) {
+      console.log(row.id)
+      this.$emit('refresh-project', row.id)
     },
     remove(index) {
-      // this.data.splice(index, 1);
+      this.grayEnvList.splice(index, 1);
     }
   }
 }
