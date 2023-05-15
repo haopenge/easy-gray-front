@@ -31,6 +31,7 @@ export default {
         {
           title: '名称',
           slot: 'name',
+          width: 200
         },
         {
           title: '分支',
@@ -45,7 +46,6 @@ export default {
         {
           title: '操作',
           slot: 'action',
-          width: 200,
           align: 'center'
         }
       ]

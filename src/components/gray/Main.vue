@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      split: 0.4,
+      split: 0.5,
       grayEnvList: [],
       grayProjectList: [],
       grayEnv: {
