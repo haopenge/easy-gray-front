@@ -1,12 +1,13 @@
 <template>
-  <!--@on-row-click="showDetail"-->
+  <Button type="primary" size="small" style="margin-right: 5px" @click.stop="showEnvPop">新增</Button>
+
   <Table border :columns="columns" :data="grayEnvList" @on-row-click="showDetail">
     <template #name="{ row }">
       <strong>{{ row.name }}</strong>
     </template>
     <template #action="{ row, index }">
-      <Button type="primary" size="small" style="margin-right: 5px" @click.stop="editPop(row)">编辑</Button>
-      <Button type="error" size="small" @click.stop="remove(index)">Delete</Button>
+      <Button type="primary" size="small" style="margin-right: 5px" @click.stop="showEnvPop(row)">编辑</Button>
+      <Button type="error" size="small" @click.stop="remove(row)">Delete</Button>
     </template>
   </Table>
 </template>
@@ -31,6 +32,10 @@ export default {
           key: 'description'
         },
         {
+          title: '过期时间',
+          key: 'expireTime'
+        },
+        {
           title: 'Action',
           slot: 'action',
           width: 150,
@@ -40,15 +45,15 @@ export default {
     }
   },
   methods: {
-    editPop(row) {
-      this.$emit('show-pop', row)
+    showEnvPop(row) {
+      this.$emit('show-env-pop', row)
     },
     showDetail(row) {
       console.log(row.id)
       this.$emit('refresh-project', row.id)
     },
-    remove(index) {
-      this.grayEnvList.splice(index, 1);
+    remove(row) {
+      this.$emit('delete-env', row.id)
     }
   }
 }
