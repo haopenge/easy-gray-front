@@ -29,10 +29,10 @@
 
 </template>
 <script>
+import axios from 'axios'
 import Left from '@/components/gray/Left.vue'
 import Right from '@/components/gray/Right.vue'
 import EnvPop from '@/components/gray/EnvPop.vue'
-import axios from 'axios'
 import ProjectPop from '@/components/gray/ProjectPop.vue'
 
 export default {
@@ -92,24 +92,21 @@ export default {
      */
     findGrayEnvList() {
       axios
-          .get('/env/findAll')
-          .then((response) => {
-            const resultData = fetchResponseData(response)
-            this.grayEnvList = resultData.map(item => {
-                  return {
-                    id: item.id,
-                    name: item.name,
-                    description: item.description ? item.description : '未填写环境描述',
-                    expireTime: item.expireTime
-                  }
-                }
-            )
-            this.rightProjectEnvId = this.grayEnvList[0].id
-            this.refreshProject(this.rightProjectEnvId)
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+        .get('/env/findAll')
+        .then((response) => {
+          const resultData = fetchResponseData(response)
+          this.grayEnvList = resultData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description ? item.description : '未填写环境描述',
+            expireTime: item.expireTime
+          }))
+          this.rightProjectEnvId = this.grayEnvList[0].id
+          this.refreshProject(this.rightProjectEnvId)
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     },
 
     /**
@@ -119,23 +116,20 @@ export default {
     refreshProject(envId) {
       console.log('.... findProject', envId)
       axios
-          .get('/project/findByEnvId?envId=' + envId)
-          .then((response) => {
-            const resultData = fetchResponseData(response)
-            this.grayProjectList = resultData.map(item => {
-                  return {
-                    id: item.id,
-                    name: item.name,
-                    description: item.description ? item.description : '未填写项目描述',
-                    branch: item.branch
-                  }
-                }
-            )
-            this.rightProjectEnvId = envId
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+        .get(`/project/findByEnvId?envId=${envId}`)
+        .then((response) => {
+          const resultData = fetchResponseData(response)
+          this.grayProjectList = resultData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description ? item.description : '未填写项目描述',
+            branch: item.branch
+          }))
+          this.rightProjectEnvId = envId
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     },
 
     /**
@@ -169,13 +163,13 @@ export default {
         expireTime: grayEnv.expireTime
       }
       axios.post('/env/edit', payload)
-          .then(response => {
-            fetchResponseData(response)
-            this.findGrayEnvList()
-          })
-          .catch(error => {
-            console.error(error)
-          })
+        .then((response) => {
+          fetchResponseData(response)
+          this.findGrayEnvList()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
     /**
      * 新增环境信息
@@ -188,27 +182,27 @@ export default {
         expireTime: grayEnv.expireTime
       }
       axios.post('/env/add', payload)
-          .then(response => {
-            fetchResponseData(response)
-            this.findGrayEnvList()
-          })
-          .catch(error => {
-            console.error(error)
-          })
+        .then((response) => {
+          fetchResponseData(response)
+          this.findGrayEnvList()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
     /**
      * 删除环境信息
      * @param envId 环境id
      */
     envDelete(envId) {
-      axios.delete('/env/deleteById?id=' + envId)
-          .then(response => {
-            fetchResponseData(response)
-            this.findGrayEnvList()
-          })
-          .catch(error => {
-            console.error(error)
-          })
+      axios.delete(`/env/deleteById?id=${envId}`)
+        .then((response) => {
+          fetchResponseData(response)
+          this.findGrayEnvList()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
 
     /**
@@ -230,14 +224,14 @@ export default {
     projectBranchFetch(project) {
       console.log('.... projectBranchFetch', project)
       axios
-          //  TODO 目前仅一个git项目，先固定
-          .get('/git/findBranches?projectUrl=' + 'https://gitee.com/xiaoyuxxx/easy-gray.git')
-          .then((response) => {
-            this.gitBranches = fetchResponseData(response)
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+      //  TODO 目前仅一个git项目，先固定
+        .get('/git/findBranches?projectUrl=' + 'https://gitee.com/xiaoyuxxx/easy-gray.git')
+        .then((response) => {
+          this.gitBranches = fetchResponseData(response)
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     },
 
     /**
@@ -250,14 +244,14 @@ export default {
         branchName: grayProject.branch
       }
       axios
-          .post('/project/edit', payload)
-          .then((response) => {
-            fetchResponseData(response)
-            this.refreshProject(this.rightProjectEnvId)
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+        .post('/project/edit', payload)
+        .then((response) => {
+          fetchResponseData(response)
+          this.refreshProject(this.rightProjectEnvId)
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     },
 
     /**
@@ -271,14 +265,14 @@ export default {
         branchName: grayProject.branch
       }
       axios
-          .post('/project/add', payload)
-          .then((response) => {
-            fetchResponseData(response)
-            this.refreshProject(this.rightProjectEnvId)
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+        .post('/project/add', payload)
+        .then((response) => {
+          fetchResponseData(response)
+          this.refreshProject(this.rightProjectEnvId)
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     },
 
     /**
@@ -287,14 +281,14 @@ export default {
      */
     projectDelete(projectId) {
       axios
-          .delete('/project/deleteById?id=' + projectId)
-          .then((response) => {
-            fetchResponseData(response)
-            this.refreshProject(this.rightProjectEnvId)
-          })
-          .catch((error) => { // 请求失败处理
-            console.log(error)
-          })
+        .delete(`/project/deleteById?id=${projectId}`)
+        .then((response) => {
+          fetchResponseData(response)
+          this.refreshProject(this.rightProjectEnvId)
+        })
+        .catch((error) => { // 请求失败处理
+          console.log(error)
+        })
     }
   }
 }
@@ -307,8 +301,8 @@ export default {
 function fetchResponseData(response) {
   if (response && response.data) {
     const result = response.data
-    const success = result.success
-    const message = result.message
+    const { success } = result
+    const { message } = result
 
     if (!success) {
       alert(message)

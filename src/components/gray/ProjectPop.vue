@@ -60,9 +60,9 @@ export default {
     },
     filterMethod(value, option) {
       return option.toUpperCase()
-          .indexOf(value.toUpperCase()) !== -1
+        .indexOf(value.toUpperCase()) !== -1
     },
-    projectOnSelect(value){
+    projectOnSelect(value) {
       this.$emit('project-branch-fetch', value)
     }
   }

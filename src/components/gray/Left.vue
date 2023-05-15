@@ -6,8 +6,8 @@
       <strong>{{ row.name }}</strong>
     </template>
     <template #action="{ row, index }">
-      <Button type="primary" size="small" style="margin-right: 5px" @click.stop="showEnvPop(row)">编辑</Button>
-      <Button type="error" size="small" @click.stop="remove(row)">Delete</Button>
+      <Button type="info" size="small" style="margin-right: 5px" @click.stop="showEnvPop(row)">编辑</Button>
+      <Button type="warning" size="small" @click.stop="remove(row)">删除</Button>
     </template>
   </Table>
 </template>

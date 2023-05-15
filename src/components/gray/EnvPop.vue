@@ -38,7 +38,7 @@ export default {
     },
     cancel() {
       // 清理对话框数据
-      console.log('-----cancel------' + this.grayEnv.name)
+      console.log(`-----cancel------${this.grayEnv.name}`)
     },
     handleDateChange(date) {
       this.grayEnv.expireTime = date

@@ -58,7 +58,7 @@ export default {
      */
     runProject(projectId) {
       // TODO 待补充
-      console.log('项目启动中：',projectId)
+      console.log('项目启动中：', projectId)
       this.$emit('run-project', projectId)
     },
     remove(row) {
