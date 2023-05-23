@@ -7,7 +7,10 @@
     </template>
     <template #action="{row,index}">
       <Button type="success" size="small" style="margin-right: 5px" @click="runProject(row.id)">
-        运行
+        启动
+      </Button>
+      <Button type="warning" size="small" style="margin-right: 5px" @click="stopProject(row.id)">
+        停止
       </Button>
       <Button type="info" size="small" style="margin-right: 5px" @click="showProjectPop(row)">
         编辑
@@ -57,9 +60,14 @@ export default {
      * @param projectId 项目id
      */
     runProject(projectId) {
-      // TODO 待补充
-      console.log('项目启动中：', projectId)
       this.$emit('run-project', projectId)
+    },
+    /**
+     * 停止项目
+     * @param projectId 项目id
+     */
+    stopProject(projectId) {
+      this.$emit('stop-project', projectId)
     },
     remove(row) {
       this.$emit('delete-project', row.id)

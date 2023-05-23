@@ -10,7 +10,10 @@
       <template #right>
         <div class="demo-split-pane">
           <Right :gray-project-list="grayProjectList" @show-project-pop="showProjectPop"
-                 @delete-project="projectDelete"/>
+                 @delete-project="projectDelete"
+                 @run-project="projectRun"
+                 @stop-project="projectStop"
+          />
         </div>
       </template>
     </Split>
@@ -47,7 +50,7 @@ export default {
   },
   data() {
     return {
-      split: 0.5,
+      split: 0.4,
       grayEnvList: [],
       grayProjectList: [],
       grayEnv: {
@@ -92,21 +95,21 @@ export default {
      */
     findGrayEnvList() {
       axios
-        .get('/env/findAll')
-        .then((response) => {
-          const resultData = fetchResponseData(response)
-          this.grayEnvList = resultData.map((item) => ({
-            id: item.id,
-            name: item.name,
-            description: item.description ? item.description : '未填写环境描述',
-            expireTime: item.expireTime
-          }))
-          this.rightProjectEnvId = this.grayEnvList[0].id
-          this.refreshProject(this.rightProjectEnvId)
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
+          .get('/env/findAll')
+          .then((response) => {
+            const resultData = fetchResponseData(response)
+            this.grayEnvList = resultData.map((item) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description ? item.description : '未填写环境描述',
+              expireTime: item.expireTime
+            }))
+            this.rightProjectEnvId = this.grayEnvList[0].id
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
@@ -116,20 +119,20 @@ export default {
     refreshProject(envId) {
       console.log('.... findProject', envId)
       axios
-        .get(`/project/findByEnvId?envId=${envId}`)
-        .then((response) => {
-          const resultData = fetchResponseData(response)
-          this.grayProjectList = resultData.map((item) => ({
-            id: item.id,
-            name: item.name,
-            description: item.description ? item.description : '未填写项目描述',
-            branch: item.branch
-          }))
-          this.rightProjectEnvId = envId
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
+          .get(`/project/findByEnvId?envId=${envId}`)
+          .then((response) => {
+            const resultData = fetchResponseData(response)
+            this.grayProjectList = resultData.map((item) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description ? item.description : '未填写项目描述',
+              branch: item.branch
+            }))
+            this.rightProjectEnvId = envId
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
@@ -163,13 +166,13 @@ export default {
         expireTime: grayEnv.expireTime
       }
       axios.post('/env/edit', payload)
-        .then((response) => {
-          fetchResponseData(response)
-          this.findGrayEnvList()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+          .then((response) => {
+            fetchResponseData(response)
+            this.findGrayEnvList()
+          })
+          .catch((error) => {
+            console.error(error)
+          })
     },
     /**
      * 新增环境信息
@@ -182,13 +185,13 @@ export default {
         expireTime: grayEnv.expireTime
       }
       axios.post('/env/add', payload)
-        .then((response) => {
-          fetchResponseData(response)
-          this.findGrayEnvList()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+          .then((response) => {
+            fetchResponseData(response)
+            this.findGrayEnvList()
+          })
+          .catch((error) => {
+            console.error(error)
+          })
     },
     /**
      * 删除环境信息
@@ -196,13 +199,13 @@ export default {
      */
     envDelete(envId) {
       axios.delete(`/env/deleteById?id=${envId}`)
-        .then((response) => {
-          fetchResponseData(response)
-          this.findGrayEnvList()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+          .then((response) => {
+            fetchResponseData(response)
+            this.findGrayEnvList()
+          })
+          .catch((error) => {
+            console.error(error)
+          })
     },
 
     /**
@@ -224,14 +227,14 @@ export default {
     projectBranchFetch(project) {
       console.log('.... projectBranchFetch', project)
       axios
-      //  TODO 目前仅一个git项目，先固定
-        .get('/git/findBranches?projectUrl=' + 'https://gitee.com/xiaoyuxxx/easy-gray.git')
-        .then((response) => {
-          this.gitBranches = fetchResponseData(response)
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
+          //  TODO 目前仅一个git项目，先固定
+          .get('/git/findBranches?projectUrl=' + 'https://gitee.com/xiaoyuxxx/easy-gray.git')
+          .then((response) => {
+            this.gitBranches = fetchResponseData(response)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
@@ -244,14 +247,14 @@ export default {
         branchName: grayProject.branch
       }
       axios
-        .post('/project/edit', payload)
-        .then((response) => {
-          fetchResponseData(response)
-          this.refreshProject(this.rightProjectEnvId)
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
+          .post('/project/edit', payload)
+          .then((response) => {
+            fetchResponseData(response)
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
@@ -265,14 +268,15 @@ export default {
         branchName: grayProject.branch
       }
       axios
-        .post('/project/add', payload)
-        .then((response) => {
-          fetchResponseData(response)
-          this.refreshProject(this.rightProjectEnvId)
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
+          .post('/project/add', payload)
+          .then((response) => {
+            // eslint-disable-next-line no-use-before-define
+            fetchResponseData(response)
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
     },
 
     /**
@@ -281,15 +285,48 @@ export default {
      */
     projectDelete(projectId) {
       axios
-        .delete(`/project/deleteById?id=${projectId}`)
-        .then((response) => {
-          fetchResponseData(response)
-          this.refreshProject(this.rightProjectEnvId)
-        })
-        .catch((error) => { // 请求失败处理
-          console.log(error)
-        })
-    }
+          .delete(`/project/deleteById?id=${projectId}`)
+          .then((response) => {
+            // eslint-disable-next-line no-use-before-define
+            fetchResponseData(response)
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
+    },
+
+    /**
+     * 运行项目
+     * @param projectId
+     */
+    projectRun(projectId) {
+      axios
+          .post(`/project/run?id=${projectId}`)
+          .then((response) => {
+            fetchResponseData(response)
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
+    },
+    /**
+     * 停止项目
+     * @param projectId
+     */
+    projectStop(projectId) {
+      axios
+          .post(`/project/stop?id=${projectId}`)
+          .then((response) => {
+            fetchResponseData(response)
+            this.refreshProject(this.rightProjectEnvId)
+          })
+          .catch((error) => { // 请求失败处理
+            console.log(error)
+          })
+    },
+
   }
 }
 
