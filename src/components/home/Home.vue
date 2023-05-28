@@ -18,6 +18,7 @@
     background-size: contain;
     background-repeat: no-repeat
 }
+
 .layout-footer-center {
     text-align: center;
 }
@@ -71,11 +72,12 @@
                         </div>-->
 
             <Header>
-                <div @click="collapsedSider" class="layout-logo" :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
+                <div @click="collapsedSider" class="layout-logo"
+                     :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
 
                 </div>
 
-                <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu" >
+                <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu">
                     <MenuItem name="1">
                         <Icon type="ios-navigate"></Icon>
                         <span>吃</span>
@@ -96,8 +98,7 @@
             </Header>
             <Layout>
                 <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                    <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-
+                    <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
                         <template v-for="(item,index) in menus" :key="index">
                             <Submenu name="{{item.id}}">
                                 <template #title>
@@ -105,7 +106,7 @@
                                     <span>{{ item.name }}</span>
                                 </template>
                                 <template v-for="(cellRow, cellIndex) in item.menus" :key="cellIndex">
-                                    <MenuItem name="{{cellRow.id}}">
+                                    <MenuItem name="1" @click="this.switchPageContent(cellRow.id)">
                                         <span> {{ cellRow.name }}</span>
                                     </MenuItem>
                                 </template>
@@ -114,7 +115,10 @@
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Main />
+                    <Main v-if="pageContentId === 11"/>
+                    <Content v-if="pageContentId !== 11" style="  height: 1000px;border: 1px solid #dcdee2;">
+                        敬请期待
+                    </Content>
                 </Layout>
             </Layout>
             <Footer class="layout-footer-center">2011-2016 &copy; xiaoyuxxx</Footer>
@@ -125,9 +129,11 @@
 <script>
 
 import Main from '@/components/gray/Main.vue'
+import { Content } from 'view-ui-plus'
 
 export default {
   components: {
+    Content,
     Main
   },
   data() {
@@ -140,15 +146,16 @@ export default {
           menus: [
             {
               id: 11,
-              name: '仓库管理',
+              name: '灰度管理',
             },
             {
               id: 12,
-              name: '项目管理',
-            },
+              name: '仓库管理',
+            }
           ]
-        }
-      ]
+        },
+      ],
+      pageContentId: 0
     }
   },
   computed: {
@@ -163,6 +170,10 @@ export default {
     collapsedSider() {
       this.$refs.side1.toggleCollapse()
     },
+    switchPageContent(id) {
+      console.log(id)
+      this.pageContentId = id
+    }
   }
 }
 </script>
