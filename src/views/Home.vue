@@ -1,15 +1,15 @@
 <template>
-  <Main>
-  </Main>
+  <Home>
+  </Home>
 </template>
 
 <script>
-import Main from '@/components/gray/Main.vue'
+import Home from '@/components/home/Home.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    Main
+    Home
   }
 }
 </script>

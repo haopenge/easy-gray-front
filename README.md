@@ -2,7 +2,7 @@
 > 灰度管理页面
 > 
 # 页面效果
-![img.png](img.png)
+![img_1.png](img_1.png)![img.png](img.png)
 
 # 运行
 ```shell
