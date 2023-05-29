@@ -100,13 +100,13 @@
                 <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
                     <Menu active-name="1" theme="dark" width="auto" :class="menuitemClasses">
                         <template v-for="(item,index) in menus" :key="index">
-                            <Submenu name="{{item.id}}">
+                            <Submenu :name=item.id>
                                 <template #title>
                                     <Icon type="ios-navigate"></Icon>
                                     <span>{{ item.name }}</span>
                                 </template>
                                 <template v-for="(cellRow, cellIndex) in item.menus" :key="cellIndex">
-                                    <MenuItem name="1" @click="this.switchPageContent(cellRow.id)">
+                                    <MenuItem :name=cellRow.name @click="this.switchPageContent(cellRow.id)">
                                         <span> {{ cellRow.name }}</span>
                                     </MenuItem>
                                 </template>
