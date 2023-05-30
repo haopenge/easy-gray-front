@@ -90,11 +90,8 @@ export default {
         password: '',
         sshPrivateKey: ''
       }
-      console.log('--------------- hello world 12138--------start---------' + this.authenticatePopVisible)
       this.authenticateNameDisable = false
       this.authenticatePopVisible = true
-      console.log('--------------- hello world 12138--------end---------' + this.authenticatePopVisible)
-
     },
 
     /**

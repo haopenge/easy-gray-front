@@ -1,38 +1,38 @@
 <template>
-  <Button type="primary" style="width: 70px;" @click="showRepositoryAddPop">新增</Button>
+    <Button type="primary" style="width: 70px;" @click="showRepositoryAddPop">新增</Button>
 
-  <Table border :columns="columns" :data="repositoryList" @on-row-click="showDetail">
-    <template #name="{ row }">
-      <strong>{{ row.name }}</strong>
-    </template>
-    <template #action="{ row, index }">
-      <Button type="info" size="small" style="margin-right: 5px" @click.stop="showRepositoryEditPop(row)">编辑</Button>
-      <Button type="warning" size="small" @click.stop="remove(row)">删除</Button>
-    </template>
-  </Table>
+    <Table border :columns="columns" :data="repositoryList">
+        <template #name="{ row }">
+            <strong>{{ row.name }}</strong>
+        </template>
+        <template #action="{ row, index }">
+            <Button type="info" size="small" style="margin-right: 5px" @click.stop="showRepositoryEditPop(row)">编辑
+            </Button>
+            <Button type="warning" size="small">删除</Button>
+        </template>
+    </Table>
+
+    <RepositoryPop :repository="repository"
+                   :repository-pop-visible="repositoryPopVisible"/>
 </template>
 <script>
 
+import RepositoryPop from '@/components/repository/RepositoryPop.vue'
+
 export default {
-  props: {
-    repositoryList: {
-      type: Array,
-      default: [
-        {
-          id: 1,
-          name: 'easy-gray',
-          description: '灰度发布项目',
-          easyAuthenticateId: 1,
-        }
-      ]
-    }
+  components: {
+    RepositoryPop
   },
   data() {
     return {
       columns: [
         {
           title: '名称',
-          slot: 'name'
+          key: 'name'
+        },
+        {
+          title: 'git克隆地址',
+          key: 'cloneUrl'
         },
         {
           title: '详情',
@@ -49,15 +49,41 @@ export default {
           align: 'center'
         }
       ],
+      repository: {
+        id: 1,
+        name: 'easy-gray',
+        cloneUrl: 'git@gitee.com:xiaoyuxxx/easy-gray.git',
+        description: '灰度发布项目',
+        easyAuthenticateId: 1
+      },
+      repositoryList: [
+        {
+          id: 1,
+          name: 'easy-gray',
+          cloneUrl: 'git@gitee.com:xiaoyuxxx/easy-gray.git',
+          description: '灰度发布项目',
+          easyAuthenticateId: 1,
+        }
+      ],
+      repositoryPopVisible: false,
+
     }
   },
   methods: {
-    showRepositoryAddPop(row) {
+    showRepositoryAddPop() {
+        this.repository = {
+            id: 1,
+            name: 'easy-gray',
+            cloneUrl: 'git@gitee.com:xiaoyuxxx/easy-gray.git',
+            description: '灰度发布项目',
+            easyAuthenticateId: 1
+        }
+      this.repositoryPopVisible = true
     },
     showRepositoryEditPop(row) {
+      this.repositoryPopVisible = true
     },
     remove(row) {
-      this.$emit('delete-env', row.id)
     }
   }
 }
