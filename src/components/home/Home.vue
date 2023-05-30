@@ -81,11 +81,10 @@
         <div @click="collapsedSider" class="layout-logo"
              :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
         </div>
-<!--        <div class="switch-layout-logo">
-          <Icon @click="collapsedSider" type="md-menu"
-                size="24"></Icon>
-        </div>-->
-
+        <!--        <div class="switch-layout-logo">
+                  <Icon @click="collapsedSider" type="md-menu"
+                        size="24"></Icon>
+                </div>-->
 
         <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu">
           <MenuItem name="1">
@@ -125,14 +124,13 @@
             </template>
           </Menu>
         </Sider>
-        <Layout>
+        <Layout style="height: 2000px;">
           <Main v-if="activeName === 11"/>
-          <Content v-if="activeName !== 11" style="  height: 1000px;border: 1px solid #dcdee2;">
-            敬请期待
-          </Content>
+          <Repository v-if="activeName === 12"/>
+          <Authenticate v-if="activeName === 13"/>
         </Layout>
       </Layout>
-      <Footer class="layout-footer-center">2011-2016 &copy; xiaoyuxxx</Footer>
+      <Footer class="layout-footer-center">2011-2016 &copy;xiaoyuxxx</Footer>
     </Layout>
 
   </div>
@@ -141,11 +139,15 @@
 
 import Main from '@/components/gray/Main.vue'
 import { Content } from 'view-ui-plus'
+import Repository from '@/components/repository/Repository.vue'
+import Authenticate from '@/components/authenticate/Authenticate.vue'
 
 export default {
   components: {
     Content,
-    Main
+    Main,
+    Repository,
+    Authenticate
   },
   data() {
     return {
@@ -162,6 +164,10 @@ export default {
             {
               id: 12,
               name: '仓库管理',
+            },
+            {
+              id: 13,
+              name: '认证管理',
             }
           ]
         },
@@ -169,7 +175,7 @@ export default {
       openNames: [
         1
       ],
-      activeName: 11
+      activeName: 13
     }
   },
   computed: {

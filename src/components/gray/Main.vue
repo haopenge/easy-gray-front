@@ -3,13 +3,16 @@
     <Split v-model="split">
       <template #left>
         <div class="demo-split-pane">
-          <Left :gray-env-list="grayEnvList" @refresh-project='refreshProject' @show-env-pop="showEnvPop"
+          <Left :gray-env-list="grayEnvList"
+                @refresh-project='refreshProject'
+                @show-env-pop="showEnvPop"
                 @delete-env="envDelete"/>
         </div>
       </template>
       <template #right>
         <div class="demo-split-pane">
-          <Right :gray-project-list="grayProjectList" @show-project-pop="showProjectPop"
+          <Right :gray-project-list="grayProjectList"
+                 @show-project-pop="showProjectPop"
                  @delete-project="projectDelete"
                  @run-project="projectRun"
                  @stop-project="projectStop"
@@ -20,9 +23,15 @@
   </div>
 
   <div>
-    <EnvPop :gray-env="grayEnv" :env-pop-visible="envPopVisible" @env-edit="envEdit" @env-add="envAdd"
-            :env-pop-name-disable="envPopNameDisable"/>
-    <ProjectPop :gray-project="grayProject" :project-pop-visible="projectPopVisible" :git-projects="gitProjects"
+    <EnvPop :gray-env="grayEnv"
+            :env-pop-visible="envPopVisible"
+            :env-pop-name-disable="envPopNameDisable"
+            @env-edit="envEdit"
+            @env-add="envAdd"
+            />
+    <ProjectPop :gray-project="grayProject"
+                :project-pop-visible="projectPopVisible"
+                :git-projects="gitProjects"
                 :git-branches="gitBranches"
                 @project-branch-fetch="projectBranchFetch"
                 @project-add="projectAdd"
