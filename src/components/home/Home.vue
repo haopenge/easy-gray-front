@@ -81,28 +81,13 @@
         <div @click="collapsedSider" class="layout-logo"
              :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
         </div>
-        <!--        <div class="switch-layout-logo">
-                  <Icon @click="collapsedSider" type="md-menu"
-                        size="24"></Icon>
-                </div>-->
-
         <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu">
-          <MenuItem name="1">
-            <Icon type="ios-navigate"></Icon>
-            <span>吃</span>
-          </MenuItem>
-          <MenuItem name="2">
-            <Icon type="ios-keypad"></Icon>
-            <span>喝</span>
-          </MenuItem>
-          <MenuItem name="3">
-            <Icon type="ios-analytics"></Icon>
-            <span>玩</span>
-          </MenuItem>
-          <MenuItem name="4">
-            <Icon type="ios-paper"></Icon>
-            <span>乐</span>
-          </MenuItem>
+          <template v-for="(item,index) in topMenus" :key=index>
+            <MenuItem :name="item.id">
+              <Icon :type="item.iconType"></Icon>
+              <span>{{item.name}}</span>
+            </MenuItem>
+          </template>
         </Menu>
       </Header>
       <Layout>
@@ -178,6 +163,18 @@ export default {
             }
           ]
         },
+      ],
+      topMenus: [
+        {
+          id: 1,
+          iconType:'ios-analytics',
+          name: '简单',
+        },
+        {
+          id: 2,
+          iconType:'ios-paper',
+          name: '易用',
+        }
       ],
       openNames: [
         1
