@@ -42,10 +42,10 @@
 </template>
 <script>
 import axios from 'axios'
-import Left from '@/components/gray/Left.vue'
-import Right from '@/components/gray/Right.vue'
+import Left from '@/components/gray/Env.vue'
+import Right from '@/components/gray/EnvProject.vue'
 import EnvPop from '@/components/gray/EnvPop.vue'
-import ProjectPop from '@/components/gray/ProjectPop.vue'
+import ProjectPop from '@/components/gray/EnvProjectPop.vue'
 
 export default {
   components: {

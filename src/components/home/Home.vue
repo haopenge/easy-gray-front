@@ -128,6 +128,7 @@
           <Main v-if="activeName === 11"/>
           <Repository v-if="activeName === 12"/>
           <Authenticate v-if="activeName === 13"/>
+          <Project v-if="activeName === 14"/>
         </Layout>
       </Layout>
       <Footer class="layout-footer-center">2011-2016 &copy;xiaoyuxxx</Footer>
@@ -137,17 +138,19 @@
 </template>
 <script>
 
-import Main from '@/components/gray/Main.vue'
+import Main from '@/components/gray/Gray.vue'
 import { Content } from 'view-ui-plus'
 import Repository from '@/components/repository/Repository.vue'
 import Authenticate from '@/components/authenticate/Authenticate.vue'
+import Project from '@/components/project/Project.vue'
 
 export default {
   components: {
     Content,
     Main,
     Repository,
-    Authenticate
+    Authenticate,
+    Project
   },
   data() {
     return {
@@ -168,6 +171,10 @@ export default {
             {
               id: 13,
               name: '认证管理',
+            },
+            {
+              id: 14,
+              name: '项目管理',
             }
           ]
         },
@@ -175,7 +182,7 @@ export default {
       openNames: [
         1
       ],
-      activeName: 12
+      activeName: 14
     }
   },
   computed: {
