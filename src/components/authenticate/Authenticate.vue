@@ -99,7 +99,6 @@ export default {
      * @param row 目标认证行信息
      */
     showAuthenticateEditPop(row) {
-      console.log(row.id)
       this.authenticate = {
         id: row.id,
         type: row.type,
