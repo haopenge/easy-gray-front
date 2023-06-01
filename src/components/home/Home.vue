@@ -1,6 +1,4 @@
 <style scoped>
-
-
 .layout {
   border: 1px solid #d7dde4;
   background: #f5f7f9;
@@ -103,9 +101,9 @@
           <Repository v-if="activeName === 12"/>
           <Authenticate v-if="activeName === 13"/>
           <Project v-if="activeName === 14"
-                   @project-build="showProjectBuildPage"
+                   @show-config-page="showConfigPage"
           />
-          <Build v-if="activeName === 15"
+          <ProjectConfig v-if="activeName === 15"
           />
         </Layout>
       </Layout>
@@ -121,11 +119,11 @@ import { Content } from 'view-ui-plus'
 import Repository from '@/components/repository/Repository.vue'
 import Authenticate from '@/components/authenticate/Authenticate.vue'
 import Project from '@/components/project/Project.vue'
-import Build from '@/components/project/Build.vue'
+import ProjectConfig from '@/components/project/ProjectConfig.vue'
 
 export default {
   components: {
-    Build,
+    ProjectConfig,
     Content,
     Main,
     Repository,
@@ -198,7 +196,7 @@ export default {
     menuOpenChange(name) {
       console.log('menuOpenChange name = ' + name)
     },
-    showProjectBuildPage(project){
+    showConfigPage(project){
       this.activeName=15;
     }
   }

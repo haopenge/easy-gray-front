@@ -6,7 +6,7 @@
       <strong>{{ row.name }}</strong>
     </template>
     <template #action="{ row, index }">
-      <Button type="success" size="small" style="margin-right: 5px" @click.stop="build(row)">构建
+      <Button type="success" size="small" style="margin-right: 5px" @click.stop="showConfigPage(row)">配置
       </Button>
       <Button type="info" size="small" style="margin-right: 5px" @click.stop="showProjectEditPop(row)">编辑
       </Button>
@@ -139,8 +139,8 @@ export default {
      * 项目构建
      * @project 项目信息
      */
-    build(project) {
-      this.$emit('project-build', project)
+    showConfigPage(project) {
+      this.$emit('show-config-page', project)
     },
 
     /**
