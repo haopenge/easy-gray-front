@@ -6,6 +6,8 @@
       <strong>{{ row.name }}</strong>
     </template>
     <template #action="{ row, index }">
+      <Button type="success" size="small" style="margin-right: 5px" @click.stop="build(row)">构建
+      </Button>
       <Button type="info" size="small" style="margin-right: 5px" @click.stop="showProjectEditPop(row)">编辑
       </Button>
       <Button type="warning" size="small" @click.stop="remove(row.id)">删除</Button>
@@ -47,7 +49,7 @@ export default {
         {
           title: 'Action',
           slot: 'action',
-          width: 150,
+          width: 250,
           align: 'center'
         }
       ],
@@ -134,10 +136,18 @@ export default {
       alert(saveRepository.projectRepositoryId)
     },
     /**
-     *
+     * 项目构建
+     * @project 项目信息
      */
-    projectRepositoryChange(projectRepositoryId){
-      this.projectRepositoryId = projectRepositoryId;
+    build(project) {
+      this.$emit('project-build', project)
+    },
+
+    /**
+     * 项目仓库更改时间
+     */
+    projectRepositoryChange(projectRepositoryId) {
+      this.projectRepositoryId = projectRepositoryId
     }
   }
 }

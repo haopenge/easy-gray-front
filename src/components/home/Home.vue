@@ -19,17 +19,6 @@
   background-repeat: no-repeat
 }
 
-.switch-layout-logo {
-  width: 50px;
-  height: 50px;
-  top: 10px;
-  float: left;
-  position: relative;
-  background-size: contain;
-  background-repeat: no-repeat;
-  color: white;
-}
-
 .layout-footer-center {
   text-align: center;
 }
@@ -113,7 +102,11 @@
           <Main v-if="activeName === 11"/>
           <Repository v-if="activeName === 12"/>
           <Authenticate v-if="activeName === 13"/>
-          <Project v-if="activeName === 14"/>
+          <Project v-if="activeName === 14"
+                   @project-build="showProjectBuildPage"
+          />
+          <Build v-if="activeName === 15"
+          />
         </Layout>
       </Layout>
       <Footer class="layout-footer-center">2011-2016 &copy;xiaoyuxxx</Footer>
@@ -128,9 +121,11 @@ import { Content } from 'view-ui-plus'
 import Repository from '@/components/repository/Repository.vue'
 import Authenticate from '@/components/authenticate/Authenticate.vue'
 import Project from '@/components/project/Project.vue'
+import Build from '@/components/project/Build.vue'
 
 export default {
   components: {
+    Build,
     Content,
     Main,
     Repository,
@@ -179,7 +174,7 @@ export default {
       openNames: [
         1
       ],
-      activeName: 14
+      activeName: 15
     }
   },
   computed: {
@@ -202,6 +197,9 @@ export default {
     },
     menuOpenChange(name) {
       console.log('menuOpenChange name = ' + name)
+    },
+    showProjectBuildPage(project){
+      this.activeName=15;
     }
   }
 }
