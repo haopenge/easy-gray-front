@@ -33,14 +33,27 @@
                      placeholder="请输入此构建步骤名称"/>
             </FormItem>
 
-            <FormItem label="处理脚本:" prop="name" v-if="item.type === 2">
-              <Input type="textarea" v-model="item.content" rows="11" placeholder="请输入执行脚本内容"/>
+            <FormItem label="脚本:" prop="name" v-if="item.type === 2">
+                <br>
+                <Codemirror
+                        v-model="item.content"
+                        placeholder="Code gose here..."
+                        :style="{ height: '400px' }"
+                        :autofocus="true"
+                        :indent-with-tab="true"
+                        :tabSize="2"
+                        :extensions="extensions"
+                        @ready="log('ready', $event)"
+                        @change="codeChange($event,item)"
+                        @focus="log('focus', $event)"
+                        @blur="log('blur', $event)"
+                />
             </FormItem>
           </div>
           <Button type="info" ghost style="width: 400px; margin-right: 11px" @click="addCheckOut">新增检出</Button>
           <Button type="success" ghost style="width: 400px" @click="addSh">新增脚本</Button>
         </Form>
-        <Button type="primary" style="width: 800px; margin-top: 10px" @click="addSh">保存</Button>
+        <Button type="primary" style="width: 800px; margin-top: 10px" @click="saveConfig">保存</Button>
       </template>
 
       <template v-if="buildStepIndex === 1">
@@ -68,6 +81,9 @@
 <script>
 
 import { Button, Form, Layout, Space } from 'view-ui-plus'
+import { Codemirror } from "vue-codemirror";
+import { java } from "@codemirror/lang-java";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 export default {
   name: 'build',
@@ -75,7 +91,8 @@ export default {
     Space,
     Layout,
     Form,
-    Button
+    Button,
+    Codemirror
   },
   props: {},
   data() {
@@ -96,7 +113,9 @@ export default {
           name: 'easy-12138',
           description: '灰度功能测试环境'
         }
-      ]
+      ],
+      extensions : [java(), oneDark],
+      log: console.log
     }
   },
   methods: {
@@ -133,7 +152,10 @@ export default {
       let newShBuild = {
         name: '',
         type: 2,
-        content: '',
+        content: 'FROM registry.cn-hangzhou.aliyuncs.com/ranmo/mvn:1.6\n' +
+          'EXPOSE 10080\n' +
+          'COPY ./target/*.jar $APP_PATH/app.jar\n' +
+          'CMD ["sh","-c","java -jar $APP_PATH/app.jar"]',
         nameDisable: false
       }
       this.builds.push(newShBuild)
@@ -145,6 +167,21 @@ export default {
      */
     namespaceOnSelect(namespace) {
       this.namespace = namespace
+    },
+    /**
+     * 脚本变更
+     * @param value 脚本值
+     * @param item  对应行记录
+     */
+    codeChange(value,item){
+      item.content = value;
+    },
+
+    /**
+     * 保存配置
+     */
+    saveConfig(){
+      alert(this.builds.at(0).content)
     }
 
   }

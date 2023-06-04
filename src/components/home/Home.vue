@@ -1,116 +1,120 @@
 <style scoped>
 .layout {
-  border: 1px solid #d7dde4;
-  background: #f5f7f9;
-  position: relative;
-  border-radius: 4px;
-  overflow: hidden;
+    border: 1px solid #d7dde4;
+    background: #f5f7f9;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .layout-logo {
-  width: 50px;
-  height: 50px;
-  top: 10px;
-  float: left;
-  position: relative;
-  background-size: contain;
-  background-repeat: no-repeat
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    float: left;
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat
 }
 
 .layout-footer-center {
-  text-align: center;
+    text-align: center;
 }
 
 .menu-item span {
-  display: inline-block;
-  overflow: hidden;
-  width: 69px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: bottom;
-  transition: width .2s ease .2s;
+    display: inline-block;
+    overflow: hidden;
+    width: 69px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+    transition: width .2s ease .2s;
 }
 
 .menu-item i {
-  transform: translateX(0px);
-  transition: font-size .2s ease, transform .2s ease;
-  vertical-align: middle;
-  font-size: 16px;
+    transform: translateX(0px);
+    transition: font-size .2s ease, transform .2s ease;
+    vertical-align: middle;
+    font-size: 16px;
 }
 
 .collapsed-menu span {
-  width: 0px;
-  transition: width .2s ease;
+    width: 0px;
+    transition: width .2s ease;
 }
 
 .collapsed-menu i {
-  transform: translateX(5px);
-  transition: font-size .2s ease .2s, transform .2s ease .2s;
-  vertical-align: middle;
-  font-size: 22px;
+    transform: translateX(5px);
+    transition: font-size .2s ease .2s, transform .2s ease .2s;
+    vertical-align: middle;
+    font-size: 22px;
 }
 
 .layout-footer-center {
-  text-align: center;
+    text-align: center;
 }
 
 .top-menu {
-  height: 60px;
-  line-height: 60px;
-  left: 96px;
+    height: 60px;
+    line-height: 60px;
+    left: 96px;
 }
 
 </style>
 <template>
-  <div class="layout">
-    <Layout>
-      <Header>
-        <div @click="collapsedSider" class="layout-logo"
-             :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
-        </div>
-        <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu">
-          <template v-for="(item,index) in topMenus" :key=index>
-            <MenuItem :name="item.id">
-              <Icon :type="item.iconType"></Icon>
-              <span>{{item.name}}</span>
-            </MenuItem>
-          </template>
-        </Menu>
-      </Header>
-      <Layout>
-        <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-          <Menu :open-names="openNames" :active-name="activeName" theme="dark" width="auto" :class="menuitemClasses"
-                @on-open-change="menuOpenChange" @on-select="switchPageContent">
-            <template v-for="(item,index) in menus" :key="index">
-              <Submenu :name=item.id>
-                <template #title>
-                  <Icon type="ios-navigate"></Icon>
-                  <span>{{ item.name }}</span>
-                </template>
-                <template v-for="(cellRow, cellIndex) in item.menus" :key="cellIndex">
-                  <MenuItem :name=cellRow.id>
-                    <span> {{ cellRow.name }}</span>
-                  </MenuItem>
-                </template>
-              </Submenu>
-            </template>
-          </Menu>
-        </Sider>
-        <Layout style="height: 2000px;">
-          <Main v-if="activeName === 11"/>
-          <Repository v-if="activeName === 12"/>
-          <Authenticate v-if="activeName === 13"/>
-          <Project v-if="activeName === 14"
-                   @show-config-page="showConfigPage"
-          />
-          <ProjectConfig v-if="activeName === 15"
-          />
-        </Layout>
-      </Layout>
-      <Footer class="layout-footer-center">2011-2016 &copy;xiaoyuxxx</Footer>
-    </Layout>
+    <div class="layout">
+        <Layout>
+            <Header>
+                <div @click="collapsedSider" class="layout-logo"
+                     :style="{ backgroundImage: 'url(' + require('@/assets/logo.png') + ')' }">
+                </div>
+                <Menu mode="horizontal" theme="dark" active-name="1" class="top-menu">
+                    <template v-for="(item,index) in topMenus" :key=index>
+                        <MenuItem :name="item.id">
+                            <Icon :type="item.iconType"></Icon>
+                            <span>{{ item.name }}</span>
+                        </MenuItem>
+                    </template>
+                </Menu>
+            </Header>
+            <Layout>
+                <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
+                    <Menu :open-names="openNames" :active-name="activeName" theme="dark" width="auto"
+                          :class="menuitemClasses"
+                          @on-open-change="menuOpenChange" @on-select="switchPageContent">
+                        <template v-for="(item,index) in menus" :key="index">
+                            <Submenu :name=item.id>
+                                <template #title>
+                                    <Icon type="ios-navigate"></Icon>
+                                    <span>{{ item.name }}</span>
+                                </template>
+                                <template v-for="(cellRow, cellIndex) in item.menus" :key="cellIndex">
+                                    <MenuItem :name=cellRow.id>
+                                        <span> {{ cellRow.name }}</span>
+                                    </MenuItem>
+                                </template>
+                            </Submenu>
+                        </template>
+                    </Menu>
+                </Sider>
+                <Layout style="height: 2000px;">
+                    <Main v-if="activeName === 11"/>
+                    <Repository v-if="activeName === 12"/>
+                    <Authenticate v-if="activeName === 13"/>
+                    <Project v-if="activeName === 14"
+                             @show-config-page="showConfigPage"
+                    />
+                    <ProjectConfig v-if="activeName === 15"
+                    />
+                    <CodeEdit v-if="activeName === 16"
+                    />
 
-  </div>
+                </Layout>
+            </Layout>
+            <Footer class="layout-footer-center">2011-2016 &copy;xiaoyuxxx</Footer>
+        </Layout>
+
+    </div>
 </template>
 <script>
 
@@ -120,9 +124,11 @@ import Repository from '@/components/repository/Repository.vue'
 import Authenticate from '@/components/authenticate/Authenticate.vue'
 import Project from '@/components/project/Project.vue'
 import ProjectConfig from '@/components/project/ProjectConfig.vue'
+import CodeEdit from '@/components/edit/CodeEdit.vue'
 
 export default {
   components: {
+      CodeEdit,
     ProjectConfig,
     Content,
     Main,
@@ -153,6 +159,14 @@ export default {
             {
               id: 14,
               name: '项目管理',
+            },
+            {
+              id: 15,
+              name: '配置管理',
+            },
+            {
+              id: 16,
+              name: '代码编辑',
             }
           ]
         },
@@ -160,19 +174,19 @@ export default {
       topMenus: [
         {
           id: 1,
-          iconType:'ios-analytics',
+          iconType: 'ios-analytics',
           name: '简单',
         },
         {
           id: 2,
-          iconType:'ios-paper',
+          iconType: 'ios-paper',
           name: '易用',
         }
       ],
       openNames: [
         1
       ],
-      activeName: 15
+      activeName: 16
     }
   },
   computed: {
