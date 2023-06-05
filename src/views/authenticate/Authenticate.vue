@@ -22,7 +22,7 @@
 
 
 <script>
-import AuthenticatePop from '@/components/authenticate/AuthenticatePop.vue'
+import AuthenticatePop from '@/views/authenticate/AuthenticatePop.vue'
 
 export default {
   name: 'Authenticate',

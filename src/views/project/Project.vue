@@ -25,7 +25,7 @@
 </template>
 <script>
 
-import ProjectPop from '@/components/project/ProjectPop.vue'
+import ProjectPop from '@/views/project/ProjectPop.vue'
 
 export default {
   components: {

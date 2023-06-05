@@ -22,7 +22,7 @@
 </template>
 <script>
 
-import RepositoryPop from '@/components/repository/RepositoryPop.vue'
+import RepositoryPop from '@/views/repository/RepositoryPop.vue'
 
 export default {
   components: {
@@ -71,7 +71,7 @@ export default {
         }
       ],
       repositoryPopVisible: false,
-      authenticateOption: 1,
+      authenticateOption: '1',
       authenticateOptions: [
         {
           id: 1,

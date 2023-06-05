@@ -120,14 +120,14 @@
 </template>
 <script>
 
-import Main from '@/components/gray/Gray.vue'
+import Main from '@/views/gray/Gray.vue'
 import { Content } from 'view-ui-plus'
-import Repository from '@/components/repository/Repository.vue'
-import Authenticate from '@/components/authenticate/Authenticate.vue'
-import Project from '@/components/project/Project.vue'
-import ProjectConfig from '@/components/project/ProjectConfig.vue'
-import CodeEdit from '@/components/edit/CodeEdit.vue'
-import Terminal from '@/components/terminal/Terminal.vue'
+import Repository from '@/views/repository/Repository.vue'
+import Authenticate from '@/views/authenticate/Authenticate.vue'
+import Project from '@/views/project/Project.vue'
+import ProjectConfig from '@/views/project/ProjectConfig.vue'
+import CodeEdit from '@/views/edit/CodeEdit.vue'
+import Terminal from '@/views/terminal/Terminal.vue'
 
 export default {
   components: {
