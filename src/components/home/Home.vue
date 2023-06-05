@@ -108,6 +108,8 @@
                     />
                     <CodeEdit v-if="activeName === 16"
                     />
+                    <Terminal v-if="activeName === 17"
+                    />
 
                 </Layout>
             </Layout>
@@ -125,10 +127,12 @@ import Authenticate from '@/components/authenticate/Authenticate.vue'
 import Project from '@/components/project/Project.vue'
 import ProjectConfig from '@/components/project/ProjectConfig.vue'
 import CodeEdit from '@/components/edit/CodeEdit.vue'
+import Terminal from '@/components/terminal/Terminal.vue'
 
 export default {
   components: {
-      CodeEdit,
+      Terminal,
+    CodeEdit,
     ProjectConfig,
     Content,
     Main,
@@ -167,6 +171,10 @@ export default {
             {
               id: 16,
               name: '代码编辑',
+            },
+            {
+              id: 17,
+              name: '终端'
             }
           ]
         },
@@ -186,7 +194,7 @@ export default {
       openNames: [
         1
       ],
-      activeName: 16
+      activeName: 17
     }
   },
   computed: {
@@ -210,8 +218,8 @@ export default {
     menuOpenChange(name) {
       console.log('menuOpenChange name = ' + name)
     },
-    showConfigPage(project){
-      this.activeName=15;
+    showConfigPage(project) {
+      this.activeName = 15
     }
   }
 }

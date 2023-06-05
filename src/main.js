@@ -6,7 +6,10 @@ import router from './router'
 import store from './store'
 import './styles/index.less'
 
-const app = createApp(App)
+import Terminal from 'vue-web-terminal'
+
+
+const app = createApp(App).use(Terminal)
 
 app.use(store)
   .use(router)
